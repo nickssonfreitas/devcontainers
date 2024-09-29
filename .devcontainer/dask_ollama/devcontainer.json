@@ -1,0 +1,22 @@
+{
+  "name": "dask_ollama",
+  "service": "dask-notebook",
+  "dockerComposeFile": "docker-compose.yml",
+  "workspaceFolder": "/home/jovyan/Git",
+  "forwardPorts": [8888, 8787],
+  "hostRequirements": {
+    "gpu": "optional"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter"
+      ]
+    }
+  }
+}
