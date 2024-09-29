@@ -1,66 +1,78 @@
 # Natural Language Processing (NLP) Libraries
 nltk                           # Natural Language Toolkit for text processing (Python)
-# spacy                          # Advanced Natural Language Processing library
-# sentence-transformers          # Framework for creating sentence embeddings
-# sentencepiece                  # Tokenizer and detokenizer library for text processing
-# fasttext                       # Efficient library for text classification and representation learning
-# lingua-language-detector       # Language detection library
+spacy                          # Advanced Natural Language Processing library
+sentence-transformers          # Framework for creating sentence embeddings
+sentencepiece                  # Tokenizer and detokenizer library for text processing
+fasttext                       # Efficient library for text classification and representation learning
+lingua-language-detector       # Language detection library
 
-# # Libraries for Data Manipulation and Analysis
-# pandas                         # Data manipulation and analysis library
-# numpy                          # Library for numerical data manipulation
-# scipy                          # Scientific and engineering library for complex calculations
-# scikit-learn                   # Simple and efficient tools for data mining and machine learning
-# statsmodels                    # Statistical modeling and hypothesis testing
-# pyarrow                        # In-memory columnar data format for big data analytics
-# imblearn                       # Library for handling imbalanced datasets
-# fastparquet                    # High-speed reading and writing of Parquet files
-# sqlalchemy                     # SQL toolkit and Object-Relational Mapping (ORM)
-# mongoengine                    # Python Object-Document Mapper (ODM) for MongoDB
-# pymongo                        # MongoDB connector for Python
+# Libraries for Data Manipulation and Analysis
+pandas                         # Data manipulation and analysis library
+numpy                          # Library for numerical data manipulation
+scipy                          # Scientific and engineering library for complex calculations
+scikit-learn                   # Simple and efficient tools for data mining and machine learning
+statsmodels                    # Statistical modeling and hypothesis testing
+pyarrow                        # In-memory columnar data format for big data analytics
+imblearn                       # Library for handling imbalanced datasets
+fastparquet                    # High-speed reading and writing of Parquet files
+sqlalchemy                     # SQL toolkit and Object-Relational Mapping (ORM)
+mongoengine                    # Python Object-Document Mapper (ODM) for MongoDB
+pymongo                        # MongoDB connector for Python
 
-# # Data Profiling and Exploratory Data Analysis
-# ydata-profiling                # Generate interactive reports from pandas DataFrames
-# typo                           # Library for spell-checking in text processing
+# Deep Learning and Machine Learning Frameworks
+tensorflow                     # Deep learning library for neural networks
+torch                          # PyTorch, a deep learning library for tensor computations
+transformers                   # Library for NLP using transformers
+keras                          # High-level deep learning API
+lightning-transformers         # Transformers integration with PyTorch Lightning
+cuda-python                    # CUDA bindings for Python for GPU computations
+pynvml                         # NVIDIA Management Library bindings for Python
+nvitop                         # GPU utilization monitoring
+sacrebleu                      # BLEU metric for machine translation evaluation
 
-# # Visualization Libraries
-# matplotlib                     # 2D plotting library for data visualization
-# seaborn                        # Statistical data visualization library built on Matplotlib
-# mplleaflet                     # Plotting interactive maps using leaflet.js
-# plotly                         # Interactive data visualization and dashboards
-# ipywidgets                     # Interactive widgets for Jupyter notebooks
 
-# # Interactive Dashboards and Web Applications
-# dash                           # Framework for building analytical web applications
-# dash-bootstrap-components      # Bootstrap components for Dash
-# streamlit                      # Framework for building interactive data apps
+# Data Profiling and Exploratory Data Analysis
+ydata-profiling                # Generate interactive reports from pandas DataFrames
+typo                           # Library for spell-checking in text processing
 
-# # Configuration and Logging Libraries
-# pyyaml                         # Python library for processing YAML files
-# hydra-core                     # Configuration management library
-# loguru                         # Advanced logging library for Python
+# Visualization Libraries
+matplotlib                     # 2D plotting library for data visualization
+seaborn                        # Statistical data visualization library built on Matplotlib
+mplleaflet                     # Plotting interactive maps using leaflet.js
+plotly                         # Interactive data visualization and dashboards
+ipywidgets                     # Interactive widgets for Jupyter notebooks
 
-# # Deep Learning and NLP Frameworks
-# transformers                   # Library for natural language processing using transformers
-# keras                          # Deep learning library for Python
-# lightning_transformers         # Transformers integration with PyTorch Lightning
-# cuda-python                    # CUDA bindings for Python for GPU computations
-# pynvml                         # NVIDIA Management Library bindings for Python
-# nvitop                         # GPU utilization monitoring
-# sacrebleu                      # BLEU metric for machine translation evaluation
+# Interactive Dashboards and Web Applications
+dash                           # Framework for building analytical web applications
+dash-bootstrap-components      # Bootstrap components for Dash
+streamlit                      # Framework for building interactive data apps
 
-# # Cloud and Kubernetes
-# kubernetes                     # Python client for Kubernetes API
-# boto                           # Amazon Web Services (AWS) SDK for Python
+# Configuration and Logging Libraries
+pyyaml                         # Python library for processing YAML files
+hydra-core                     # Configuration management library
+loguru                         # Advanced logging library for Python
 
-# # Google Cloud and API Libraries
-# google-api-python-client       # Google API client library for Python
+# Deep Learning and NLP Frameworks
+transformers                   # Library for natural language processing using transformers
+keras                          # Deep learning library for Python
+lightning_transformers         # Transformers integration with PyTorch Lightning
+cuda-python                    # CUDA bindings for Python for GPU computations
+pynvml                         # NVIDIA Management Library bindings for Python
+nvitop                         # GPU utilization monitoring
+sacrebleu                      # BLEU metric for machine translation evaluation
 
-# # Other Utilities
-# emoji                          # Library for using emojis in Python
-# pyre-extensions                # Type-checking extensions for Pyre
+# Cloud and Kubernetes
+kubernetes                     # Python client for Kubernetes API
+boto                           # Amazon Web Services (AWS) SDK for Python
 
-# # NEW Libraries for Environment Management and Utilities
-# python-dotenv                  # Load environment variables from .env file
-# requests                       # HTTP library for sending requests and interacting with web services
-# flask                          # Lightweight WSGI web application framework
+# Google Cloud and API Libraries
+google-api-python-client       # Google API client library for Python
+
+# Other Utilities
+emoji                          # Library for using emojis in Python
+pyre-extensions                # Type-checking extensions for Pyre
+
+# NEW Libraries for Environment Management and Utilities
+python-dotenv                  # Load environment variables from .env file
+requests                       # HTTP library for sending requests and interacting with web services
+flask                          # Lightweight WSGI web application framework
