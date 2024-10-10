@@ -10,12 +10,39 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash"
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "editor.formatOnSave": true,
+        "python.formatting.provider": "autopep8",
+        "jupyter.interactiveWindowMode": "perFile"
       },
       "extensions": [
-        "ms-python.python",
-        "ms-python.vscode-pylance",
-        "ms-toolsai.jupyter"
+        "ms-python.python",                 // Python Extension
+        "ms-python.vscode-pylance",          // Pylance
+        "ms-toolsai.jupyter",                // Jupyter
+        "ms-python.autopep8",                // Autopep8 Formatter
+        "dracula-theme.theme-dracula",       // Dracula Theme
+        "ms-vscode-remote.remote-wsl",       // WSL Support
+        "adpyke.codesnap",                   // CodeSnap for code screenshots
+        "pkief.material-icon-theme",         // Material Icon Theme
+        "esbenp.prettier-vscode",            // Prettier for Code Formatting
+        "christian-kohler.path-intellisense",// Path Intellisense
+        "skyapps.better-commands",           // Better Commands for VSCode
+        "ms-azuretools.vscode-docker",       // Docker Integration
+        "exiasr.hadolint",                   // Hadolint for Dockerfile Linting
+        "TabNine.tabnine-vscode",            // TabNine for AI-assisted coding
+        "VisualStudioExptTeam.vscodeintellicode", // Intellicode for AI completions
+        "madskristensen.makefile-tools",     // Makefile support
+        "twxs.cmake",                        // CMake support
+        "mhutchie.git-graph",                // Git Graph
+        "eamodio.gitlens",                   // GitLens for enhanced Git capabilities
+        "streetsidesoftware.code-spell-checker", // Spell Checker
+        "redhat.vscode-yaml",                // YAML support
+        "DavidAnson.vscode-markdownlint",    // Markdown linting
+        "foxundermoon.shell-format",         // Shell script formatter
+        "ms-vscode.cpptools",                // C/C++ tools
+        "hashicorp.terraform",               // Terraform support
+        "rebornix.ruby",                     // Ruby support
+        "aminer.codegeex"                    // CodeGeeX - Open Source AI Assistant
       ]
     }
   }
