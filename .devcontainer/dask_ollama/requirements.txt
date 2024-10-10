@@ -37,10 +37,10 @@ nltk                           # Natural Language Toolkit for text processing (P
 spacy                          # Advanced Natural Language Processing library
 sentence-transformers          # Framework for creating sentence embeddings
 sentencepiece                  # Tokenizer and detokenizer library for text processing
-fasttext                       # Efficient library for text classification and representation learning
-lingua-language-detector       # Language detection library
-sacrebleu                      # BLEU metric for machine translation evaluation
-typo                           # Library for spell-checking in text processing
+#fasttext                       # Efficient library for text classification and representation learning
+#lingua-language-detector       # Language detection library
+#sacrebleu                      # BLEU metric for machine translation evaluation
+#typo                           # Library for spell-checking in text processing
 
 # # Cloud and Kubernetes
 kubernetes                     # Python client for Kubernetes API

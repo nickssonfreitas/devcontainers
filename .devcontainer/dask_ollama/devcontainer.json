@@ -29,7 +29,7 @@
         "christian-kohler.path-intellisense",// Path Intellisense
         "skyapps.better-commands",           // Better Commands for VSCode
         "ms-azuretools.vscode-docker",       // Docker Integration
-        "exiasr.hadolint",                   // Hadolint for Dockerfile Linting
+        //"exiasr.hadolint",                   // Hadolint for Dockerfile Linting
         //"TabNine.tabnine-vscode",            // TabNine for AI-assisted coding
         "VisualStudioExptTeam.vscodeintellicode", // Intellicode for AI completions
         "madskristensen.makefile-tools",     // Makefile support
