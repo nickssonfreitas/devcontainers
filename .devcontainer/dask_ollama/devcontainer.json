@@ -13,7 +13,9 @@
       "settings": {
         "terminal.integrated.shell.linux": "/bin/bash",
         "editor.formatOnSave": true,
+        "python.linting.enabled": true,
         "python.formatting.provider": "autopep8",
+        "python.editor.defaultFormatter": "ms-python.autopep8",
         "jupyter.interactiveWindowMode": "perFile"
       },
       "extensions": [
