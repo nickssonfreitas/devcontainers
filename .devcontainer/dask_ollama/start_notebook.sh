@@ -74,3 +74,10 @@ exec /opt/conda/bin/jupyter lab \
 # --ServerApp.base_url="${NB_PREFIX}":
 #   Define o URL base para o Jupyter Lab usando a variável de ambiente `NB_PREFIX`.
 #   Útil quando o Jupyter Lab é acessado a partir de um subcaminho (ex: `http://localhost:8888/jupyter/`).
+
+
+# Useful aliases.
+# echo "" >> /home/$USER_NAME/.bashrc && \
+# echo "# Useful aliases." >> /home/$USER_NAME/.bashrc && \
+# echo "alias openlab=\"/opt/conda/bin/jupyter lab --ip=0.0.0.0 --no-browser --allow-root --ServerApp.token='' --ServerApp.password='' --ServerApp.allow_origin='*' --ServerApp.allow_remote_access=True\"" >> /home/$USER_NAME/.bashrc && \
+# source /home/$USER_NAME/.bashrc
