@@ -1,11 +1,8 @@
 services:
-  dask-notebook:
+  deep-learning:
     build:
       context: ../../../ # Expandindo o contexto para a raiz do projeto (Git/)
       dockerfile: devcontainers/.devcontainer/deep_learning/Dockerfile
-    container_name: dask_jupyter_notebook
+    container_name: deep_learning_jupyter_notebook
     ports:
       - "8888:8888"  # Porta Jupyter
-      - "8787:8787"  # Porta Dask
-    volumes:
-      - /home/nicksson/Git:/home/jovyan/Git

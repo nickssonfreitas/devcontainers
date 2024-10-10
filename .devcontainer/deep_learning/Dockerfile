@@ -1,104 +1,42 @@
-# Base Image
-FROM daskdev/dask-notebook:2024.8.1-py3.12
+# Utiliza a imagem base de TensorFlow com suporte a GPU
+FROM tensorflow/tensorflow:latest-gpu
 
-# Definir variáveis de ambiente permanentes
-ENV NB_USER="jovyan"
-ENV NB_UID=1000
-ENV NB_GID=1000
-ENV DEBIAN_FRONTEND="noninteractive"
-ENV PYTHONIOENCODING="utf-8"
-ENV LC_ALL="C.UTF-8"
-ENV JUPYTER_PORT="8888"
-ENV DASK_PORT="8787"
-ENV GRANT_SUDO="yes"
-ENV HOME_DIR="/home/${NB_USER}"
-ENV NB_PREFIX="/"
-ENV SHELL="/bin/bash"
+# Definir variáveis de ambiente
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONIOENCODING=utf-8
 
-##############################################################################
-# Atualização e instalação de pacotes essenciais
-##############################################################################
-USER root
-RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends \
-        apt-transport-https \
-        apt-utils \
-        build-essential \
-        ca-certificates \
-        curl \
-        libncurses5 \
-        libncursesw5 \
-        patch \
-        wget \
-        rsync \
-        unzip \
-        zip \
-        jq \
-        gnupg \
-        libtcmalloc-minimal4 \
-        locales \
-        nano \
-        vim && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && \
-    locale-gen
+# Atualizar pacotes e instalar utilitários essenciais
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    curl \
+    ca-certificates \
+    git \
+    wget \
+    vim \
+    sudo && \
+    rm -rf /var/lib/apt/lists/*
 
-# Ajustar permissões para o diretório home do usuário existente
-##############################################################################
-RUN mkdir -p ${HOME_DIR} && \
-    chown -R ${NB_UID}:${NB_GID} ${HOME_DIR}
+# Instalar o PyTorch com suporte a GPU e outras dependências
+RUN pip install --no-cache-dir torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118
 
-##############################################################################
-# Instalação do kubectl para notebooks do Kubeflow
-##############################################################################
-RUN curl -sL "https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl" -o /usr/local/bin/kubectl && \
-    curl -sL "https://dl.k8s.io/v1.21.0/bin/linux/amd64/kubectl.sha256" -o /tmp/kubectl.sha256 && \
-    echo "$(cat /tmp/kubectl.sha256) /usr/local/bin/kubectl" | sha256sum --check && \
-    rm /tmp/kubectl.sha256 && \
-    chmod +x /usr/local/bin/kubectl
+# Copiar o arquivo requirements.txt para o contêiner
+COPY requirements.txt .
 
-##############################################################################
-# Instalação do Ollama
-##############################################################################
-RUN mkdir -p /usr/share/ollama && chown -R root:root /usr/share/ollama
-COPY /ollama/ollama /usr/bin/
-RUN chmod +x /usr/bin/ollama
-
-##############################################################################
-# Instalação do Tini para inicialização eficiente
-##############################################################################
-ENV TINI_VERSION=v0.19.0
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/local/bin/tini
-RUN chmod +x /usr/local/bin/tini
-
-##############################################################################
-# Instalação de dependências Python
-##############################################################################
-COPY devcontainers/.devcontainer/dask_ollama/requirements.txt ./
+# Instalar dependências Python a partir do arquivo requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-##############################################################################
-# Copiar o script de inicialização e definir permissões
-##############################################################################
-COPY devcontainers/.devcontainer/dask_ollama/startup.sh ./
-RUN chmod +x startup.sh
+# Instalar suporte ao SSH (opcional, para conectar a repositórios privados)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends openssh-client && \
+    rm -rf /var/lib/apt/lists/*
 
-# Definir diretório de trabalho e permissões
-WORKDIR ${HOME_DIR}
-RUN chown -R ${NB_UID}:${NB_GID} ${HOME_DIR}
+# Definir o diretório de trabalho
+WORKDIR /workspace
 
-# Definir o usuário padrão para jovyan
-USER ${NB_USER}
+# Expor a porta para o JupyterLab e para a API Flask (se precisar)
+EXPOSE 8888   # JupyterLab
+EXPOSE 5000   # Flask
 
-##############################################################################
-# Expor as portas para Jupyter e Dask
-##############################################################################
-EXPOSE ${JUPYTER_PORT}
-EXPOSE ${DASK_PORT}
-
-##############################################################################
-# Definir o ponto de entrada e comando padrão
-##############################################################################
-ENTRYPOINT ["tini", "--"]
-CMD ["./startup.sh"]
+# Comando padrão para iniciar o JupyterLab ao entrar no contêiner
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser"]

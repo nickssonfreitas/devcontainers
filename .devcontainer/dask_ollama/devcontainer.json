@@ -3,6 +3,7 @@
   "service": "dask-notebook",
   "dockerComposeFile": "docker-compose.yml",
   "workspaceFolder": "/home/jovyan/Git",
+  "postCreateCommand": "pip install --no-cache-dir -r $HOME/requirements.txt",
   "forwardPorts": [8888, 8787],
   "hostRequirements": {
     "gpu": "optional"
@@ -29,7 +30,7 @@
         "skyapps.better-commands",           // Better Commands for VSCode
         "ms-azuretools.vscode-docker",       // Docker Integration
         "exiasr.hadolint",                   // Hadolint for Dockerfile Linting
-        "TabNine.tabnine-vscode",            // TabNine for AI-assisted coding
+        //"TabNine.tabnine-vscode",            // TabNine for AI-assisted coding
         "VisualStudioExptTeam.vscodeintellicode", // Intellicode for AI completions
         "madskristensen.makefile-tools",     // Makefile support
         "twxs.cmake",                        // CMake support
@@ -39,10 +40,10 @@
         "redhat.vscode-yaml",                // YAML support
         "DavidAnson.vscode-markdownlint",    // Markdown linting
         "foxundermoon.shell-format",         // Shell script formatter
-        "ms-vscode.cpptools",                // C/C++ tools
+        //"ms-vscode.cpptools",                // C/C++ tools
         "hashicorp.terraform",               // Terraform support
-        "rebornix.ruby",                     // Ruby support
-        "aminer.codegeex"                    // CodeGeeX - Open Source AI Assistant
+        //"rebornix.ruby",                     // Ruby support
+        //"aminer.codegeex"                    // CodeGeeX - Open Source AI Assistant
       ]
     }
   }

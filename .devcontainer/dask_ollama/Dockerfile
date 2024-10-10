@@ -38,7 +38,8 @@ RUN apt-get update --yes && \
         libtcmalloc-minimal4 \
         locales \
         nano \
-        vim && \
+        vim \
+        openssh-client && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && \
@@ -73,16 +74,12 @@ ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/
 RUN chmod +x /usr/local/bin/tini
 
 ##############################################################################
-# Instalação de dependências Python
-##############################################################################
-COPY devcontainers/.devcontainer/dask_ollama/requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
-
-##############################################################################
 # Copiar o script de inicialização e definir permissões
 ##############################################################################
-COPY devcontainers/.devcontainer/dask_ollama/startup.sh ./
-RUN chmod +x startup.sh
+COPY devcontainers/.devcontainer/dask_ollama/start_notebook.sh ./
+COPY devcontainers/.devcontainer/dask_ollama/requirements.txt ./
+RUN chmod +x ./start_notebook.sh
+#RUN pip install --no-cache-dir -r requirements.txt
 
 # Definir diretório de trabalho e permissões
 WORKDIR ${HOME_DIR}
@@ -101,4 +98,4 @@ EXPOSE ${DASK_PORT}
 # Definir o ponto de entrada e comando padrão
 ##############################################################################
 ENTRYPOINT ["tini", "--"]
-CMD ["./startup.sh"]
+CMD ["./start_notebook.sh"]
