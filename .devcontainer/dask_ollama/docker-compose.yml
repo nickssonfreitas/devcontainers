@@ -8,4 +8,5 @@ services:
       - "8888:8888"  # Porta Jupyter
       - "8787:8787"  # Porta Dask
     volumes:
-      - /home/nicksson/Git:/home/jovyan/Git
+      - $HOME/Git:/home/jovyan/Git
+      - $HOME/.ssh:/home/jovyan/.ssh

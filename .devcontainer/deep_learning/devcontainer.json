@@ -1,5 +1,5 @@
 {
-  "name": "dask_ollama",
+  "name": "deep_learning",
   "service": "dask-notebook",
   "dockerComposeFile": "docker-compose.yml",
   "workspaceFolder": "/home/jovyan/Git",
