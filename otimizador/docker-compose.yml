@@ -1,0 +1,24 @@
+services:
+  jupyter-lab-cpu:
+    # Service name and container configuration.
+    container_name: jupyter-lab-cpu
+    image: jupyter-lab-cpu/nicksson:v1.0.0  # Use a meaningful version tag.
+    build:
+      context: /home/nicksson/Git/otimizador/  # Ensure the directory is within this context.
+      dockerfile: ./docker/Dockerfile-cpu
+      args:
+        USER_UID: ${USER_UID}  # User ID for the container.
+        USER_GID: ${USER_GID}  # Group ID for the container.
+        USER_NAME: ${USER_NAME}  # Username for the container.
+        WORKDIR: ${WORKDIR}  # Working directory inside the container.
+        LOCAL_PROJECT_PATH: ${LOCAL_PROJECT_PATH}  # Path to the local project.
+        LOCAL_JUPYTER_START_SCRIPT: ${LOCAL_JUPYTER_START_SCRIPT}  # Path to the startup script.
+    volumes:
+      # Use absolute paths instead of ~ for the home directory.
+      - ${LOCAL_PROJECT_PATH}:${WORKDIR}/otimizador:rw # Código-fonte do projeto
+      - /home/nicksson/.ssh:/home/${USER_NAME}/.ssh:rw # Chaves SSH para acesso remoto
+    ports:
+      # Expose the JupyterLab port.
+      - "8890:8890"
+    user: "${USER_UID}:${USER_GID}"  # Run the container as the specified user.
+    command: /usr/local/bin/start_notebook.sh  # Execute the startup script.

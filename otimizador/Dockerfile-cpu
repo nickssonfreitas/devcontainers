@@ -1,0 +1,116 @@
+# STEP 01: Base image
+# Using the official Python 3.11 slim image as the base for a lightweight container.
+FROM python:3.11-slim
+
+# STEP 02: Image metadata
+# Adding metadata for easier identification of the image.
+LABEL name="jupyter_lab_cpu"
+LABEL description="Python packages developed by Nickssn Freitas"
+LABEL authors="Nicksson Freitas"
+LABEL contributors="Nicksson Freitas" 
+LABEL email="<nickssonarrais@gmail.com"
+
+# STEP 03: Initial configuration
+# Setting up build arguments for user and project configuration.
+ARG USER_UID
+ARG USER_GID
+ARG USER_NAME
+ARG WORKDIR
+ARG LOCAL_PROJECT_PATH
+ARG LOCAL_JUPYTER_START_SCRIPT
+
+# Setting environment variables for runtime use.
+ENV USER_UID=${USER_UID}
+ENV USER_GID=${USER_GID}
+ENV USER_NAME=${USER_NAME}
+ENV WORKDIR=${WORKDIR}
+
+# Additional environment variables for container behavior.
+ENV SHELL=/bin/bash
+ENV DEBIAN_FRONTEND=noninteractive \
+    PYTHONUNBUFFERED=1 \
+    UV_CACHE_DIR="/home/${USER_NAME}/.cache/uv" \
+    PATH="/home/${USER_NAME}/.local/bin:$PATH"
+
+# STEP 04: Install basic packages
+# Installing only the necessary packages to reduce image size.
+RUN apt-get update --yes && \
+    # Ferramentas de desenvolvimento
+    apt-get install --yes --no-install-recommends \
+    gcc make build-essential patch sudo && \
+    # Ferramentas de sistema
+    apt-get install --yes --no-install-recommends \
+    vim curl wget unzip git htop tmux tree nano rsync jq && \
+    # Ferramentas de rede e segurança
+    apt-get install --yes --no-install-recommends \
+    openssh-client apt-transport-https apt-utils ca-certificates gnupg && \
+    # Bibliotecas Python e dependências
+    apt-get install --yes --no-install-recommends \
+    python3-pip python-is-python3 libgomp1 libgl1 libgdal-dev gdal-bin && \
+    # Outras bibliotecas e utilitários
+    apt-get install --yes --no-install-recommends \
+    graphviz libncurses5 libncursesw5 libtcmalloc-minimal4 locales zip && \
+    # Limpeza para reduzir o tamanho da imagem
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# STEP 05: Create non-root user
+# Adding a non-root user for better security.
+RUN groupadd --gid $USER_GID $USER_NAME && \
+    useradd --uid $USER_UID --gid $USER_GID --create-home $USER_NAME && \
+    echo "%sudo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+    adduser $USER_NAME sudo && \
+    id $USER_NAME && groups $USER_NAME  # Verify user creation.
+
+# STEP 06: Install uv utility
+# Installing the uv utility directly from the official repository.
+COPY --from=ghcr.io/astral-sh/uv:0.6.17 /uv /uvx /bin/
+RUN /bin/uv --version && \
+    /bin/uvx --version && \
+    echo "uv and uvx binaries installed and verified successfully."
+
+# STEP 07: Install Poetry
+# Installing Poetry for dependency management.
+RUN curl -sSL https://install.python-poetry.org | python3 - && \
+    echo "export PATH=$PATH:/home/${USER_NAME}/.local/bin" >> /home/$USER_NAME/.bashrc
+
+# STEP 08: Configure GDAL environment variables
+# Setting up environment variables for GDAL libraries.
+ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
+ENV C_INCLUDE_PATH=/usr/include/gdal 
+
+# STEP 09: Copy project files and startup script
+# Copying the project directory and startup script into the container.
+WORKDIR $WORKDIR
+COPY --chown=${USER_NAME}:${USER_NAME} ${LOCAL_PROJECT_PATH} ${WORKDIR}/otimizador
+COPY --chown=${USER_NAME}:${USER_NAME} ${LOCAL_JUPYTER_START_SCRIPT} /usr/local/bin/start_notebook.sh
+RUN chmod +x /usr/local/bin/start_notebook.sh
+
+# STEP 10: Upgrade pip
+# Upgrading pip to the latest version.
+RUN pip install --upgrade pip --no-cache-dir
+
+# STEP 11: Install JupyterLab
+# Installing JupyterLab for notebook functionality.
+RUN uv pip install jupyterlab --no-cache-dir --system
+
+# STEP 12: Install Node.js
+# Installing Node.js for JavaScript-based tools.
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install --yes nodejs
+
+# STEP 13: Switch to non-root user
+# Switching to the non-root user created earlier.
+USER ${USER_NAME}
+
+# STEP 14: Configure shell and prompt
+# Removing startup message and enabling colored prompt.
+RUN touch ~/.sudo_as_admin_successful
+RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /home/$USER_NAME/.bashrc
+
+# STEP 15: Restore apt frontend
+# Restoring apt frontend to dialog for interactive use.
+ARG DEBIAN_FRONTEND=dialog
+
+# Define the container's startup script.
+CMD ["start_notebook.sh"]
